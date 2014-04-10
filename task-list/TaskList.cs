@@ -3,19 +3,20 @@
 
 
 using System;
-using System.Threading;
 using System.Collections.Generic;
+using System.Threading;
 
 
 // Records the tasklist
 public class TaskList
 {
     public string name;
+    public List<string> listOfStrings;
 
     public TaskList()
     {
         name = "";
-        var listOfStrings = new List<string>();
+        listOfStrings = new List<string>();
         //List<string> l = new List<string>();
     }
 }
@@ -35,7 +36,6 @@ class Program
     {
         Console.WriteLine("Select your option:");
         Console.WriteLine("-------------------");
-        Console.WriteLine();
         Console.WriteLine("1. Add task");
         Console.WriteLine("2. Delete task");
         Console.WriteLine("3. Save current tasklist to <filename>.txt");
@@ -47,32 +47,71 @@ class Program
 
     static void AddTask()
     {
-        throw new NotImplementedException();
+        Console.WriteLine(HyphenMultiplier(80));
+        Console.Write(">>> Add task: ");
+        string input = Console.ReadLine();
+        Console.Clear();
+
+        Console.WriteLine(HyphenMultiplier(80));
+        Console.WriteLine("TASKLIST ({0}):", taskList.name);
+        Console.WriteLine();
+
+        taskList.listOfStrings.Add(input);  // Update task list
+
+        foreach (string task in taskList.listOfStrings)
+        {
+            Console.WriteLine(task);
+        }
+        Console.WriteLine(HyphenMultiplier(80));
     }
 
     static void DeleteTask()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Not implemented yet.");
+        Console.WriteLine();
     }
 
     static void SaveTaskList()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Not implemented yet.");
+        Console.WriteLine();
     }
 
     static void LoadTaskList()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Not implemented yet.");
+        Console.WriteLine();
     }
 
     static void ShowTasks()
     {
-        throw new NotImplementedException();
+        int sizeOfTaskList = taskList.listOfStrings.Count;
+        Console.Clear();
+
+        if (sizeOfTaskList == 0)
+        {
+            Console.WriteLine(HyphenMultiplier(80));
+            Console.WriteLine("No tasks.");
+            Console.WriteLine(HyphenMultiplier(80));
+        }
+        else 
+        {
+            Console.WriteLine(HyphenMultiplier(80));
+            Console.WriteLine("TASKLIST ({0}):", taskList.name);
+            Console.WriteLine();
+
+            foreach (string task in taskList.listOfStrings)
+            {
+                Console.WriteLine(task);
+            }
+            Console.WriteLine(HyphenMultiplier(80));
+
+        }
     }
 
     static void Main()
     {
-        //ShowTasks();
+        ShowTasks();
 
         while (true)
         {
