@@ -18,6 +18,7 @@ public class TaskList
     {
         name = "";
         listOfStrings = new List<string>();
+        //List<string> l = new List<string>();
     }
 }
 
@@ -26,6 +27,7 @@ class Program
 {
     static TaskList taskList = new TaskList();
 
+    // Multiply char or string
     static string HyphenMultiplier(int n)
     {
         return new String('-', n);
@@ -156,23 +158,21 @@ class Program
             Thread.Sleep(700);
             Main();
         }
-        // Create a folder
-        Directory.CreateDirectory("TaskLists");
 
         Console.Write("Enter tasklist name: ");
         string fileName = Console.ReadLine();
-        taskList.name = fileName + ".txt";
 
         // Write to file
-        File.WriteAllLines("TaskLists/"+fileName + ".txt", taskList.listOfStrings);
+        File.WriteAllLines(fileName + ".txt", taskList.listOfStrings);
         Console.Clear();
         Console.WriteLine(HyphenMultiplier(80));
         Console.WriteLine();
-        Console.WriteLine("Created '{0}' succesfully!", taskList.name);
+        Console.WriteLine("Created '{0}.txt' succesfully!", taskList.name);
         Console.WriteLine();
         Console.WriteLine(HyphenMultiplier(80));
-        Thread.Sleep(1500);
-        ShowTasks();
+        Thread.Sleep(700);
+
+        taskList.name = fileName + ".txt";
     }
 
     static void LoadTaskList()
@@ -191,7 +191,6 @@ class Program
             Console.WriteLine(HyphenMultiplier(80));
             Console.WriteLine("No tasks.");
             Console.WriteLine(HyphenMultiplier(80));
-            taskList.name = "";
         }
         else 
         {
@@ -232,6 +231,8 @@ class Program
                 Console.WriteLine(HyphenMultiplier(80));
                 Console.WriteLine("ERROR: Invalid Command.");
                 Console.WriteLine(HyphenMultiplier(80));
+
+                // Wait 700ms (0.7s)
                 Thread.Sleep(700);
                 ShowTasks();
             }
