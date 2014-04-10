@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Threading;
 
 
-// Records the tasklist
+// Keeps track of the TaskList
 public class TaskList
 {
     public string name;
@@ -74,7 +74,7 @@ class Program
             Console.WriteLine(HyphenMultiplier(80));
             Console.WriteLine("ERROR: No tasks to delete.");
             Console.WriteLine(HyphenMultiplier(80));
-            Thread.Sleep(700);
+            Thread.Sleep(1500);
             ShowTasks();
         }
         else
@@ -138,7 +138,7 @@ class Program
                 Console.WriteLine(HyphenMultiplier(80));
                 Console.WriteLine("ERROR: Not a valid number.");
                 Console.WriteLine(HyphenMultiplier(80));
-                Thread.Sleep(700);
+                Thread.Sleep(1500);
                 ShowTasks();
             }
         }
@@ -153,13 +153,13 @@ class Program
             Console.WriteLine(HyphenMultiplier(80));
             Console.WriteLine("ERROR: No tasks.");
             Console.WriteLine(HyphenMultiplier(80));
-            Thread.Sleep(700);
+            Thread.Sleep(1500);
             Main();
         }
         // Create a folder
         Directory.CreateDirectory("TaskLists");
 
-        Console.Write("Enter tasklist name: ");
+        Console.Write("Save tasklist (filename): ");
         string fileName = Console.ReadLine();
         taskList.name = fileName + ".txt";
 
@@ -177,8 +177,47 @@ class Program
 
     static void LoadTaskList()
     {
-        Console.WriteLine("Not implemented yet.");
-        Console.WriteLine();
+        Console.WriteLine(HyphenMultiplier(80));
+        Console.Write("Load tasklist (filename): ");
+        string fileName = Console.ReadLine();
+
+        // Check if the file exists
+        if (System.IO.File.Exists("TaskLists/" + fileName + ".txt") == true)
+        {
+            // Empty the current TaskList
+            taskList.listOfStrings.Clear();
+
+            int counter = 0;
+            string line;
+
+            // Read the file and display it line by line
+            System.IO.StreamReader file = new System.IO.StreamReader("TaskLists/" + fileName + ".txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                Console.WriteLine(line);
+                taskList.listOfStrings.Add(line);
+                counter++;
+            }
+            file.Close();
+            taskList.name = fileName + ".txt";
+
+            Console.Clear();
+            Console.WriteLine(HyphenMultiplier(80));
+            Console.WriteLine();
+            Console.WriteLine("Loaded '{0}' succesfully!", taskList.name);
+            Console.WriteLine();
+            Console.WriteLine(HyphenMultiplier(80));
+            Thread.Sleep(1500);
+            ShowTasks();
+        }
+        else
+        {
+            Console.WriteLine(HyphenMultiplier(80));
+            Console.WriteLine("ERROR: Tasklist doesn't exist.");
+            Console.WriteLine(HyphenMultiplier(80));
+            Thread.Sleep(1500);
+            Main();
+        }
     }
 
     static void ShowTasks()
@@ -196,13 +235,17 @@ class Program
         else 
         {
             Console.WriteLine(HyphenMultiplier(80));
-            Console.WriteLine("TASKLIST ({0}):", taskList.name);
+
+            if (taskList.name != "")
+                Console.WriteLine("TASKLIST ({0}):", taskList.name);
+            else
+                Console.WriteLine("TASKLIST:");
+
             Console.WriteLine();
 
             for (int i = 0; i < taskList.listOfStrings.Count; i++)
-            {
                 Console.WriteLine("{0}.................... {1}", i + 1, taskList.listOfStrings[i]);
-            }
+
             Console.WriteLine(HyphenMultiplier(80));
         }
     }
@@ -211,6 +254,7 @@ class Program
     {
         ShowTasks();
 
+        // Main loop
         while (true)
         {
             ShowMenu();
