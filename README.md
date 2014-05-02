@@ -1,7 +1,7 @@
 task-list
 =========
 
-Text-based console TaskList manager. Language: C#
+[C#] Console Tasklist manager.
 
 Features:
 
